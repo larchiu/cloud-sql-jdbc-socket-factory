@@ -42,7 +42,7 @@ Note: The host portion of the JDBC URL is currently unused, and has no effect on
 
 ### Specifying IP Types
 
-"The `ipTypes` argument is used to specify a preferred order of IP types used
+The `ipTypes` argument is used to specify a preferred order of IP types used
 to connect via a comma delimited list. For example, `ipTypes=PUBLIC,PRIVATE`
 will use the instance's Public IP if it exists, otherwise private. The
 value `ipTypes=PRIVATE` will force the Cloud SQL instance to connect via
@@ -120,6 +120,15 @@ config.setJdbcUrl(jdbcURL);
 config.setDataSourceProperties(connProps);
 config.setConnectionTimeout(10000); // 10s
 
+// The ipTypes argument can be used to specify a comma delimited list of preferred IP types
+// for connecting to a Cloud SQL instance. The argument ipTypes=PRIVATE will force the
+// SocketFactory to connect with an instance's associated private IP.
+config.addDataSourceProperty("ipTypes", "PUBLIC,PRIVATE");
+
+// ... Specify additional connection properties here.
+// ...
+
+// Initialize the connection pool using the configuration object.
 HikariDataSource connectionPool = new HikariDataSource(config);
 ```
 
